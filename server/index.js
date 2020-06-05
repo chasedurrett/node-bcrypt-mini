@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const massive = require('massive');
+const ctrl = require('./ctrl/contoller')
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use(
     saveUninitialized: false
   })
 );
+app.post('/auth/signup', ctrl.signup)
+app.post('/auth/login', ctrl.login)
 
 massive(CONNECTION_STRING).then(db => {
   app.set('db', db);
